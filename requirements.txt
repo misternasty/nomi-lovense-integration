@@ -1,0 +1,11 @@
+python-dotenv 
+python-multipart
+Jinja2
+requests
+aiohttp
+fastapi
+uvicorn
+starlette
+sqlalchemy 
+sqlalchemy_utils
+modal
