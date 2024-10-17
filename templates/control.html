@@ -1,0 +1,55 @@
+<!-- templates/control.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Control Your Toy</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+    <div class="mb-4">
+        <h3 class="text-gray-700 font-bold mb-2 text-lg">Your Nomis:</h3>
+        <ul class="list-disc list-inside">
+            {% for nomi in nomis %}
+            <li>
+                {{ nomi.name }} ({{ nomi.gender }})
+                <a href="/chat?nomi_id={{ nomi.uuid }}" class="text-blue-500 hover:underline">Chat</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="w-full max-w-md">
+        <h2 class="block text-gray-700 font-bold mb-4 text-xl text-center">Control Your Toy</h2>
+        <form action="/send-command" method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <input type="hidden" name="uid" value="{{ uid }}">
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="toy">
+                    Select Toy
+                </label>
+                <select name="toy" id="toy" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    {% for toy in toys %}
+                    <option value="{{ toy.id }}">{{ toy.name }} ({{ toy.id }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="action">
+                    Action
+                </label>
+                <select name="action" id="action" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <option value="Vibrate:5">Vibrate:5</option>
+                    <option value="Vibrate:10">Vibrate:10</option>
+                    <option value="Vibrate:20">Vibrate:20</option>
+                    <option value="Stop">Stop</option>
+                </select>
+            </div>
+            <div class="flex items-center justify-center">
+                <button type="submit"
+                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    Send Command
+                </button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

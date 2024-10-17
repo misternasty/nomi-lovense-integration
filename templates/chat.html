@@ -1,0 +1,61 @@
+<!-- templates/chat.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat with Your Nomi</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Add some basic styles for the chat interface */
+        .chat-container {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        .message {
+            margin-bottom: 10px;
+        }
+        .user-message {
+            text-align: right;
+        }
+        .nomi-message {
+            text-align: left;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">            
+    <div class="w-full max-w-md">
+        <h2 class="block text-gray-700 font-bold mb-4 text-xl text-center">Chat with Your Nomi</h2>
+        <form action="/send-chat-message" method="post">
+            <input type="hidden" name="uid" value="{{ uid }}">
+            <input type="hidden" name="nomi_id" value="{{ nomi_id }}">
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="nomi">
+                    Select Nomi
+                </label>
+                <select name="nomi_id" id="nomi" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    {% for id, nomi in nomis.items() %}
+                    <option value="{{ id }}" {% if id == nomi_id %}selected{% endif %}>{{ nomi.name }} ({{ nomi.gender }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="chat-container bg-white p-4 mb-4 rounded shadow-md">
+                {% for message in messages %}
+                <div class="message {% if message.sender == 'user' %}user-message{% else %}nomi-message{% endif %}">
+                    <strong>{{ message.sender|capitalize }}:</strong> {{ message.text }}
+                </div>
+                {% endfor %}
+            </div>
+            <div class="mb-4">
+                <input name="message_text" type="text" required placeholder="Type your message..."
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+            <div class="flex items-center justify-center">
+                <button type="submit"
+                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    Send
+                </button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
