@@ -8,7 +8,7 @@ You'll need:
 ```
 python3 -m venv venv
 source venv/bin/activate
-pip install python-dotenv python-multipart Jinja2 modal fastapi uvicorn starlette, sqlalchemy, sqlalchemy_utils
+pip install python-dotenv python-multipart Jinja2 modal fastapi uvicorn starlette sqlalchemy sqlalchemy_utils
 ```
 
 # Deploy the modal app
